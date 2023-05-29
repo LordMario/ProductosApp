@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/screens.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +12,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData( primarySwatch: Colors.blue),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Productos App'),
-        ),
+      debugShowCheckedModeBanner: false,
+      title: 'Productos App',
+      theme: ThemeData.light().copyWith(
+        scaffoldBackgroundColor: Colors.grey[300],
       ),
+      initialRoute: 'login',
+      routes: {
+        'login' : (_) => const LoginScreen(),
+        'home': (_) => const HomeScreen(),
+      },
     );
   }
 }
