@@ -8,27 +8,31 @@ class ProductImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 50),
       child: Container(
         height: 450,
         width: double.infinity,
         decoration: _buildBoxDecoration(),
         child: Opacity(
-          opacity: 0.8,
+          opacity: 0.9,
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(45), topRight: Radius.circular(45)),
-            child: imagen == null
-                ? const Image(
-                    fit: BoxFit.cover,
-                    image: AssetImage('assets/images/no-image.png'),
-                  )
-                : FadeInImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(imagen!),
-                    placeholder:
-                        const AssetImage('assets/gifs/jar-loading.gif'),
-                  ),
+            child: SizedBox(
+              width: double.infinity,
+              height: 450,
+              child: imagen == null
+                  ? const Image(
+                      fit: BoxFit.cover,
+                      image: AssetImage('assets/images/no-image.png'),
+                    )
+                  : FadeInImage(
+                      fit: BoxFit.contain,
+                      image: NetworkImage(imagen!),
+                      placeholder:
+                          const AssetImage('assets/gifs/jar-loading.gif'),
+                    ),
+            ),
           ),
         ),
       ),
@@ -39,7 +43,7 @@ class ProductImage extends StatelessWidget {
     return BoxDecoration(
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(45), topRight: Radius.circular(45)),
-        color: const Color.fromARGB(255, 0, 0, 0),
+        color: const Color.fromARGB(255, 255, 255, 255),
         boxShadow: [
           BoxShadow(
               color: Colors.black.withOpacity(0.05),

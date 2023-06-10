@@ -47,7 +47,7 @@ class _ProdutScreenBody extends StatelessWidget {
                       },
                       icon: const Icon(
                         Icons.arrow_back_ios_new,
-                        color: Colors.white,
+                        color: Colors.black,
                         size: 40,
                       ),
                     )),
@@ -58,7 +58,7 @@ class _ProdutScreenBody extends StatelessWidget {
                       onPressed: null,
                       icon: Icon(
                         Icons.camera_alt_outlined,
-                        color: Colors.white,
+                        color: Colors.black,
                         size: 40,
                       ),
                     ))
@@ -73,8 +73,10 @@ class _ProdutScreenBody extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          productformProvider.isValidForm();
+        onPressed: () async {
+          if (!productformProvider.isValidForm()) return;
+          await productService
+              .saveOrCreateProduct(productformProvider.producto);
         },
         child: const Icon(Icons.save_outlined),
       ),
@@ -102,6 +104,7 @@ class _ProductForm extends StatelessWidget {
                 height: 10,
               ),
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 initialValue: producto.name,
                 decoration: InputDecorations.authInputDecoration(
                     label: 'Nombre', hintText: 'Nombre del producto'),
