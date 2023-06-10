@@ -24,11 +24,12 @@ class ProductCard extends StatelessWidget {
               right: 0,
               child: _PriceTag(precio: producto.price),
             ),
-            Positioned(
-              top: 0,
-              left: 0,
-              child: _NotAvailable(disponible: producto.available),
-            ),
+            if (!producto.available)
+              Positioned(
+                top: 0,
+                left: 0,
+                child: _NotAvailable(),
+              ),
           ],
         ),
       ),
@@ -46,10 +47,6 @@ class ProductCard extends StatelessWidget {
 }
 
 class _NotAvailable extends StatelessWidget {
-  final bool disponible;
-
-  const _NotAvailable({required this.disponible});
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,12 +56,12 @@ class _NotAvailable extends StatelessWidget {
           color: Colors.yellow[800],
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(25), bottomRight: Radius.circular(25))),
-      child: FittedBox(
+      child: const FittedBox(
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(10),
           child: Text(
-            disponible ? 'Disponible' : 'No disponible',
-            style: const TextStyle(
+            'No disponible',
+            style: TextStyle(
               color: Colors.white,
               fontSize: 20,
             ),
@@ -86,14 +83,16 @@ class _BackgroundImage extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         height: 400,
-        child: FadeInImage(
-          placeholder: const AssetImage('assets/gifs/jar-loading.gif'),
-          image: imagen != null
-              ? NetworkImage(imagen!)
-              : const NetworkImage(
-                  'https://via.placeholder.com/400x300/f6f6f6'),
-          fit: BoxFit.contain,
-        ),
+        child: imagen == null
+            ? const Image(
+                image: AssetImage('assets/images/no-image.png'),
+                fit: BoxFit.cover,
+              )
+            : FadeInImage(
+                placeholder: const AssetImage('assets/gifs/jar-loading.gif'),
+                image: NetworkImage(imagen!),
+                fit: BoxFit.contain,
+              ),
       ),
     );
   }
@@ -168,7 +167,7 @@ class _PriceTag extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            precio.toString(),
+            '\$$precio',
             style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
