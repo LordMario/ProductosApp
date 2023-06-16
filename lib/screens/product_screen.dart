@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:productos_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -51,12 +52,22 @@ class _ProdutScreenBody extends StatelessWidget {
                         size: 40,
                       ),
                     )),
-                const Positioned(
+                Positioned(
                     top: 60,
                     right: 20,
                     child: IconButton(
-                      onPressed: null,
-                      icon: Icon(
+                      onPressed: () async {
+                        final picker = ImagePicker();
+                        final XFile? pickedFile = await picker.pickImage(
+                            source: ImageSource.camera, imageQuality: 100);
+
+                        if (pickedFile == null) return;
+
+                        print(pickedFile.path);
+                        productService
+                            .updateSelectedProductImage(pickedFile.path);
+                      },
+                      icon: const Icon(
                         Icons.camera_alt_outlined,
                         color: Colors.black,
                         size: 40,
@@ -77,6 +88,8 @@ class _ProdutScreenBody extends StatelessWidget {
           if (!productformProvider.isValidForm()) return;
           await productService
               .saveOrCreateProduct(productformProvider.producto);
+
+          Navigator.pop(context);
         },
         child: const Icon(Icons.save_outlined),
       ),
