@@ -63,7 +63,6 @@ class _ProdutScreenBody extends StatelessWidget {
 
                         if (pickedFile == null) return;
 
-                        print(pickedFile.path);
                         productService
                             .updateSelectedProductImage(pickedFile.path);
                       },
@@ -82,16 +81,27 @@ class _ProdutScreenBody extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          if (!productformProvider.isValidForm()) return;
-          await productService
-              .saveOrCreateProduct(productformProvider.producto);
+        onPressed: productService.isSaving
+            ? null
+            : () async {
+                if (!productformProvider.isValidForm()) return;
 
-          Navigator.pop(context);
-        },
-        child: const Icon(Icons.save_outlined),
+                final String? imagenUrl = await productService.createImage();
+                if (imagenUrl != null)
+                  productformProvider.producto.picture = imagenUrl;
+
+                await productService
+                    .saveOrCreateProduct(productformProvider.producto);
+
+                Navigator.pop(context);
+              },
+        child: productService.isSaving
+            ? const CircularProgressIndicator(
+                color: Colors.white,
+              )
+            : const Icon(Icons.save_outlined),
       ),
     );
   }
