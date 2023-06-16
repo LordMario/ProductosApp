@@ -101,11 +101,12 @@ class _LoginForm extends StatelessWidget {
                     if (!loginForm.isValidForm()) return;
                     loginForm.isLoading = true;
 
+                    final navigator = Navigator.of(context);
                     await Future.delayed(const Duration(seconds: 2));
 
                     loginForm.isLoading = false;
 
-                    Navigator.pushReplacementNamed(context, 'home');
+                    navigator.pushReplacementNamed('home');
                   },
             color: Colors.deepPurple,
             disabledColor: Colors.grey,

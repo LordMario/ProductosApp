@@ -67,7 +67,7 @@ class ProductsService extends ChangeNotifier {
     final decodedData = jsonDecode(resp.body);
 
     producto.id = decodedData['name'];
-    products.add(producto);
+    products.insert(0, producto);
 
     return decodedData['name'];
   }

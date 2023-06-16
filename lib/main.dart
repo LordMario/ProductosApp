@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(elevation: 0, color: Colors.indigo),
           floatingActionButtonTheme: const FloatingActionButtonThemeData(
               backgroundColor: Colors.indigo, elevation: 0)),
-      initialRoute: 'home',
+      initialRoute: 'login',
       routes: {
         'login': (_) => const LoginScreen(),
         'home': (_) => const HomeScreen(),

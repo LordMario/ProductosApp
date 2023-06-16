@@ -88,14 +88,15 @@ class _ProdutScreenBody extends StatelessWidget {
             : () async {
                 if (!productformProvider.isValidForm()) return;
 
+                final navigator = Navigator.of(context);
                 final String? imagenUrl = await productService.createImage();
-                if (imagenUrl != null)
+                if (imagenUrl != null) {
                   productformProvider.producto.picture = imagenUrl;
-
+                }
                 await productService
                     .saveOrCreateProduct(productformProvider.producto);
 
-                Navigator.pop(context);
+                navigator.pop();
               },
         child: productService.isSaving
             ? const CircularProgressIndicator(
