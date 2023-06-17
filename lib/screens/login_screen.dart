@@ -121,6 +121,7 @@ class _LoginForm extends StatelessWidget {
                     if (errorMessage == null) {
                       navigator.pushReplacementNamed('home');
                     } else {
+                      NotificationService.showSnackBar(errorMessage);
                       loginForm.isLoading = false;
                     }
                   },

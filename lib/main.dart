@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
         'product': (_) => const ProductScreen(),
         'checking': (_) => const CheckAuthScreen(),
       },
+      scaffoldMessengerKey: NotificationService.messenguerKey,
     );
   }
 }
