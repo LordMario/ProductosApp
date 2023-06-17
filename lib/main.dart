@@ -36,12 +36,13 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(elevation: 0, color: Colors.indigo),
           floatingActionButtonTheme: const FloatingActionButtonThemeData(
               backgroundColor: Colors.indigo, elevation: 0)),
-      initialRoute: 'login',
+      initialRoute: 'checking',
       routes: {
         'login': (_) => const LoginScreen(),
         'register': (_) => const RegisterScreen(),
         'home': (_) => const HomeScreen(),
         'product': (_) => const ProductScreen(),
+        'checking': (_) => const CheckAuthScreen(),
       },
     );
   }

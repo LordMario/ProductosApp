@@ -118,9 +118,8 @@ class _LoginForm extends StatelessWidget {
                         loginForm.email, loginForm.password);
 
                     if (errorMessage == null) {
-                      navigator.pushReplacementNamed('login');
+                      navigator.pushReplacementNamed('home');
                     } else {
-                      print(errorMessage);
                       loginForm.isLoading = false;
                     }
                   },

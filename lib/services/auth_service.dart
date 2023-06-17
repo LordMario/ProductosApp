@@ -44,7 +44,19 @@ class AuthService extends ChangeNotifier {
   }
 
   Future logOut() async {
+    final xxx = await storage.read(key: 'token');
+
+    print(xxx);
+
     await storage.delete(key: 'token');
     return null;
+  }
+
+  Future<String> readToken() async {
+    final xxx = await storage.read(key: 'token');
+
+    print(xxx);
+
+    return await storage.read(key: 'token') ?? '';
   }
 }
